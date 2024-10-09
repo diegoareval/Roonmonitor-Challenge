@@ -54,7 +54,13 @@ To run this project, you will need to add the following environment variables to
   yarn install
 ```
 
-### 4. Start the server
+### 4. Run Seeds
+
+```bash
+  yarn run seed
+```
+
+### 5. Start the server
 
 ```bash
   yarn start:dev
@@ -86,5 +92,5 @@ To run tests, run the following command
 - **Product Management**: 
   - **Managers** have full control over product management (CRUD operations).
   - **Customers** can browse visible products.
-"""
+
 

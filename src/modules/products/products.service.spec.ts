@@ -49,6 +49,43 @@ describe('ProductsService', () => {
     });
   });
 
+  describe('findAll with conditions', () => {
+    const products: Product[] = [
+      {
+        id: 1,
+        name: 'Visible Product',
+        description: 'This product is visible',
+        category: 'Category A',
+        price: 15,
+        stock: 10,
+        isVisible: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 2,
+        name: 'Invisible Product',
+        description: 'This product is not visible',
+        category: 'Category B',
+        price: 20,
+        stock: 5,
+        isVisible: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
+    it('should return only visible products', async () => {
+      prisma.product.findMany.mockResolvedValueOnce(products.filter(p => p.isVisible));
+      const result = await service.findAll({ limit: 10, page: 1 }, { isVisible: true });
+      expect(prisma.product.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { isVisible: true },
+        }),
+      );
+      expect(result.items).toEqual([products[0]]);
+    });
+  });
+
   describe('findAll', () => {
     const products: Product[] = [
       {
@@ -254,6 +291,14 @@ describe('ProductsService', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
+
+    describe('update with invalid data', () => {
+      it('should throw NotFoundException when updating a non-existent product', async () => {
+        prisma.product.findUnique.mockResolvedValue(null);
+        await expect(service.update(999, {})).rejects.toThrow(NotFoundException);
+      });
+    });
+
     describe('when product with ID exists', () => {
       it('should update a product by id', async () => {
         prisma.product.findUnique.mockResolvedValueOnce(product);
@@ -400,6 +445,7 @@ describe('ProductsService', () => {
       });
     });
   });
+  
 
   it('should be defined', () => {
     expect(service).toBeDefined();

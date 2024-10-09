@@ -90,6 +90,57 @@ describe('AuthService', () => {
       });
     });
   });
+  
+
+  it('should throw an error if token creation fails', async () => {
+    const signInEmailDto: SignInEmailDto = {
+      email: 'user@example.com',
+      password: 'password',
+    };
+    const user: User = {
+      id: 1,
+      firstName: '',
+      lastName: '',
+      email: 'user@example.com',
+      password: await argon2.hash('password'),
+      roles: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    jest.spyOn(usersService, 'findOneByEmail').mockResolvedValue(user);
+    jest.spyOn(argon2, 'verify').mockResolvedValue(true);
+    jest.spyOn(service['jwtService'], 'sign').mockImplementation(() => {
+      throw new Error('Token creation failed');
+    });
+  
+    await expect(service.signInWithEmail(signInEmailDto)).rejects.toThrow(
+      Error,
+    );
+  });
+
+  it('should treat emails as case-insensitive during sign-in', async () => {
+    const signInEmailDto: SignInEmailDto = {
+      email: 'User@Example.com', 
+      password: 'password',
+    };
+    const user: User = {
+      id: 1,
+      firstName: '',
+      lastName: '',
+      email: 'user@example.com',
+      password: await argon2.hash('password'),
+      roles: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    jest.spyOn(usersService, 'findOneByEmail').mockResolvedValue(user);
+    const result = await service.signInWithEmail(signInEmailDto);
+  
+    expect(result).toEqual({
+      authenticatedUser: user,
+      accessToken: 'mockToken',
+    });
+  });
 
   describe('signUp', () => {
     it('should throw an error if email is already in use', async () => {

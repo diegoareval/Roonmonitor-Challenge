@@ -106,6 +106,38 @@ describe('OrdersService', () => {
       });
       expect(cartService.clearCart).toHaveBeenCalledWith(userId);
     });
+
+    it('should handle error during order creation', async () => {
+      const userId = 1;
+      const cart = {
+        totalItems: 1,
+        totalPrice: 20,
+        items: [
+          {
+            id: 1,
+            cartId: 1,
+            productId: 1,
+            quantity: 1,
+            product: {
+              id: 1,
+              price: 20,
+              name: 'Test Product',
+              description: 'This is a test product',
+              category: 'Test Category',
+              imageUrl: '',
+              isVisible: true,
+              stock: 5,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            },
+          },
+        ],
+      };
+      jest.spyOn(cartService, 'getItems').mockResolvedValueOnce(cart);
+      jest.spyOn(prisma.order, 'create').mockRejectedValueOnce(new Error('Database Error'));
+
+      await expect(service.create(userId)).rejects.toThrow('Database Error');
+    });
   });
 
   describe('findAll', () => {
@@ -183,6 +215,53 @@ describe('OrdersService', () => {
       prisma.order.findMany.mockResolvedValueOnce(placedOrders);
       const result = await service.findAll();
       expect(result).toEqual(placedOrders);
+    });
+
+    it('should return an empty array when there are no orders', async () => {
+      prisma.order.findMany.mockResolvedValueOnce([]);
+      const result = await service.findAll();
+      expect(result).toEqual([]);
+    });
+
+    it('should return orders filtered by userId', async () => {
+      const userId = 1;
+      const placedOrders = [
+        {
+          id: 1,
+          userId: userId,
+          total: 20,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          user: {
+            id: userId,
+            email: 'string@string.com',
+            firstName: 'string',
+            lastName: 'string',
+          },
+          items: [],
+        },
+      ];
+      prisma.order.findMany.mockResolvedValueOnce(placedOrders);
+      const result = await service.findAll(userId);
+      expect(result).toEqual(placedOrders);
+      expect(prisma.order.findMany).toHaveBeenCalledWith({
+        where: { userId },
+        include: {
+          user: {
+            select: {
+              id: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+            },
+          },
+          items: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
     });
   });
 

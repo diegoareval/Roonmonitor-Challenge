@@ -57,6 +57,50 @@ describe('LikesService', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
+
+    describe('when a product is not visible', () => {
+      it('should throw the "NotFoundException"', async () => {
+        const invisibleProduct = { ...mockProduct, isVisible: false };
+    
+        prisma.like.findFirst.mockResolvedValueOnce(null);
+        jest
+          .spyOn(productsService, 'findOne')
+          .mockRejectedValueOnce(
+            new NotFoundException(`Product #${invisibleProduct.id} not found`),
+          );
+    
+        try {
+          await service.create(userId, createProductDto);
+        } catch (err) {
+          expect(err).toBeInstanceOf(NotFoundException);
+          expect(err.message).toEqual(`Product #${invisibleProduct.id} not found`);
+        }
+      });
+    });
+
+    describe('when the product does not exist', () => {
+      it('should throw the "NotFoundException"', async () => {
+        const nonExistentProductId = 999;
+    
+        prisma.like.findFirst.mockResolvedValueOnce(null);
+        jest
+          .spyOn(productsService, 'findOne')
+          .mockRejectedValueOnce(
+            new NotFoundException(`Product #${nonExistentProductId} not found`),
+          );
+    
+        try {
+          await service.create(userId, { productId: nonExistentProductId });
+        } catch (err) {
+          expect(err).toBeInstanceOf(NotFoundException);
+          expect(err.message).toEqual(
+            `Product #${nonExistentProductId} not found`,
+          );
+        }
+      });
+    });
+
+    
     describe('when a product is valid and is not in the user wishlist', () => {
       it('should create a new like on that product', async () => {
         prisma.like.findFirst.mockResolvedValueOnce(null);
@@ -186,6 +230,23 @@ describe('LikesService', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
+
+    describe('when the user tries to remove a product that is not liked', () => {
+      it('should throw the "NotFoundException"', async () => {
+        prisma.like.findFirst.mockResolvedValueOnce(null);
+    
+        try {
+          await service.remove(userId, mockProduct.id);
+        } catch (err) {
+          expect(err).toBeInstanceOf(NotFoundException);
+          expect(err.message).toEqual(
+            `Product #${mockProduct.id} is not on user's liked products`,
+          );
+        }
+      });
+    });
+
+    
     describe('when product with ID exists', () => {
       it('should delete a like by id', async () => {
         prisma.like.findFirst.mockResolvedValue(mockedLike);
@@ -213,4 +274,6 @@ describe('LikesService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  
 });

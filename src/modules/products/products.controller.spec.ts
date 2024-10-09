@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Product } from '@prisma/client';
 import { Readable } from 'stream';
@@ -198,6 +199,14 @@ describe('ProductsController', () => {
         .spyOn(service, 'findOne')
         .mockImplementation(() => Promise.resolve(result));
       expect(await controller.findOne('1')).toEqual(result);
+    });
+
+    describe('findOne when product does not exist', () => {
+      it('should throw NotFoundException', async () => {
+        const productId = 999; // Non-existent product ID
+        jest.spyOn(service, 'findOne').mockRejectedValue(new NotFoundException());
+        await expect(controller.findOne(productId.toString())).rejects.toThrow(NotFoundException);
+      });
     });
   });
 

@@ -4,6 +4,7 @@ import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
 import { PrismaService } from '../../database/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
+import * as argon2 from 'argon2';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -21,6 +22,30 @@ describe('UsersService', () => {
   });
 
   describe('create', () => {
+    it('should hash the password before creating a user', async () => {
+      const createUserDto: CreateUserDto = {
+        email: 'jhon.doe@gmail.com',
+        firstName: 'Jhon',
+        lastName: 'Doe',
+        password: 'jhondoe',
+      };
+      const newUser: User = {
+        id: 1,
+        ...createUserDto,
+        password: 'hashedPassword', // Mocked hashed password
+        roles: ['CLIENT'],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      
+      jest.spyOn(argon2, 'hash').mockResolvedValue('hashedPassword');
+      prisma.user.create.mockResolvedValueOnce(newUser);
+      
+      const result = await service.create(createUserDto);
+      expect(result.password).toBe('hashedPassword');
+      expect(argon2.hash).toHaveBeenCalledWith('jhondoe');
+    });
+
     it('should create a new user', async () => {
       const createUserDto: CreateUserDto = {
         email: 'jhon.doe@gmail.com',
@@ -39,6 +64,8 @@ describe('UsersService', () => {
       expect(await service.create(createUserDto)).toEqual(newUser);
     });
   });
+
+  
 
   describe('findOneByEmail', () => {
     it('should return a user', async () => {
@@ -60,5 +87,12 @@ describe('UsersService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('should return null if user is not found', async () => {
+    const nonExistentEmail = 'nonexistent@example.com';
+    prisma.user.findUnique.mockResolvedValueOnce(null);
+    const result = await service.findOneByEmail(nonExistentEmail);
+    expect(result).toBeNull();
   });
 });

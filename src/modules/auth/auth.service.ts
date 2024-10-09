@@ -18,7 +18,7 @@ export class AuthService {
   ) {}
 
   /**
-   * It takes in a user's email and password, checks if the user exists, if the user exists, it checks
+   * It takes in a user's email and password, and checks if the user exists, if the user exists, it checks
    * if the password is valid, if the password is valid, it signs a JWT token with the user's email,
    * role, and id, and returns the token and the user
    * @param {SignInEmailDto} signInEmailDto - SignInEmailDto
@@ -33,11 +33,7 @@ export class AuthService {
       user.password,
       signInEmailDto.password,
     );
-    /*
-		if (user.verified === false) {
-			throw new UnauthorizedException('Please verify your email');
-		}
-    */
+
     if (!isValidPassword) {
       throw new UnauthorizedException('Invalid credentials');
     }
@@ -53,7 +49,7 @@ export class AuthService {
   }
 
   /**
-   * It takes a signUpDto object, checks if the email is already in use, and if not, creates a new user
+   * It takes a signUpDto object, checks if the email is already in use, and if not, it creates a new user
    * @param {SignUpDto} signUpDto - SignUpDto - This is the DTO that we created earlier.
    * @returns A user object
    */

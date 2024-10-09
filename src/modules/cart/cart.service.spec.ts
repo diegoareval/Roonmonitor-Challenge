@@ -61,6 +61,17 @@ describe('CartService', () => {
       quantity: 1,
     };
 
+    it('should throw an error if the product is not available or stock is insufficient', async () => {
+      jest.spyOn(service, 'retrieveUserCart').mockResolvedValue(mockedCart);
+      jest.spyOn(productsService, 'findOneAndCheckAvailability').mockRejectedValue(new Error('Product not available'));
+    
+      await expect(service.addItem(userId, {
+        productId: 1,
+        quantity: 10,
+      })).rejects.toThrow('Product not available');
+    });
+    
+
     it('should add a new item to the cart', async () => {
       jest.spyOn(service, 'retrieveUserCart').mockResolvedValue(mockedCart);
       jest
