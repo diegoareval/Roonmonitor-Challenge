@@ -32,6 +32,7 @@ To run this project, you will need to add the following environment variables to
 `JWT_SECRET`
 
 `DATABASE_URL`
+`BUCKET_NAME`
 
 # 💻 Run Locally
 
