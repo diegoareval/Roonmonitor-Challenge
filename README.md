@@ -94,3 +94,17 @@ To run tests, run the following command
   - **Customers** can browse visible products.
 
 
+## 🌟 Documentation
+[Heroku Deploy](https://dev.to/ezilemdodana/deploying-nestjs-apps-to-heroku-a-comprehensive-guide-hhj)
+
+[Docker](https://www.docker.com/)
+
+[Prisma](https://www.prisma.io/)
+
+[Postgres](https://www.postgresql.org/)
+
+[NestJs](https://nestjs.com/)
+
+[JEST](https://jestjs.io/)
+
+[JWT](https://jwt.io/)
