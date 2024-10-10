@@ -22,8 +22,8 @@ To interact with the API, use the following demo credentials:
   "password": "managerPassword"
 }
 ```
+[See Swagger documentation here](https://tiny-store-db1c4e9bf4f1.herokuapp.com/api-docs)
 
-Swagger API Documentation: []
 
 ## 🔐 Environment Variables
 
