@@ -2,6 +2,8 @@
 
 TinyStore is a REST API designed to power an e-commerce platform. It provides functionality for managing products, shopping carts, orders, authentication, and user preferences. Built with **Node.js**, **NestJS**, and **PostgreSQL**, it ensures efficient, scalable, and secure handling of sensitive e-commerce data. All modules have been extensively tested to maintain security and reliability.
 
+[Problem Description](https://ravndevelopment.notion.site/Tiny-store-644766d0a53241f7985cc41118960292)
+
 ## 🎮 Live Demo
 
 To interact with the API, use the following demo credentials:
