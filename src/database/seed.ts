@@ -11,6 +11,7 @@ async function main() {
     data: {
       email: 'diego@example.com',
       firstName: 'Diego',
+      age: "20",
       lastName: 'Arevalo',
       password: clientPassword,
       roles: {
@@ -24,6 +25,7 @@ async function main() {
       email: 'roommonitor@example.com',
       firstName: 'roommonitor',
       lastName: 'Dev',
+      age: "20",
       password: managerPassword,
       roles: {
         set: [UserRole.MANAGER],

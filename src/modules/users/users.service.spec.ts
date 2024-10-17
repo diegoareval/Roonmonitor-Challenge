@@ -28,9 +28,11 @@ describe('UsersService', () => {
         firstName: 'Jhon',
         lastName: 'Doe',
         password: 'jhondoe',
+        age: "20"
       };
       const newUser: User = {
         id: 1,
+        age: "20",
         ...createUserDto,
         password: 'hashedPassword', // Mocked hashed password
         roles: ['CLIENT'],
@@ -52,9 +54,11 @@ describe('UsersService', () => {
         firstName: 'Jhon',
         lastName: 'Doe',
         password: 'jhondoe',
+        age: "20"
       };
       const newUser: User = {
         id: 1,
+        age: "20",
         ...createUserDto,
         roles: ['CLIENT'],
         createdAt: new Date(),
@@ -72,6 +76,7 @@ describe('UsersService', () => {
       const existingEmail = 'jhon.doe@gmail.com';
       const existingUser: User = {
         id: 1,
+        age: "20",
         email: 'jhon.doe@gmail.com',
         firstName: 'Jhon',
         lastName: 'Doe',

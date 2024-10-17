@@ -53,6 +53,7 @@ describe('AuthService', () => {
       };
       const user: User = {
         id: 1,
+        age: "20",
         firstName: '',
         lastName: '',
         email: 'user@example.com',
@@ -74,6 +75,7 @@ describe('AuthService', () => {
       };
       const user: User = {
         id: 1,
+        age: "20",
         firstName: '',
         lastName: '',
         email: 'user@example.com',
@@ -99,6 +101,7 @@ describe('AuthService', () => {
     };
     const user: User = {
       id: 1,
+      age: "20",
       firstName: '',
       lastName: '',
       email: 'user@example.com',
@@ -125,6 +128,7 @@ describe('AuthService', () => {
     };
     const user: User = {
       id: 1,
+      age: "20",
       firstName: '',
       lastName: '',
       email: 'user@example.com',
@@ -152,6 +156,7 @@ describe('AuthService', () => {
       };
       const user: User = {
         id: 1,
+        age: "20",
         firstName: '',
         lastName: '',
         email: 'user@example.com',
@@ -175,6 +180,7 @@ describe('AuthService', () => {
       };
       const user: User = {
         id: 1,
+        age: "20",
         firstName: 'Example',
         lastName: 'Example',
         email: 'newuser@example.com',

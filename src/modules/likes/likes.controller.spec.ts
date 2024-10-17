@@ -25,6 +25,7 @@ describe('LikesController', () => {
   describe('create', () => {
     const mockUser: User = {
       id: 1,
+      age: "20",
       email: 'example@example.com',
       firstName: 'Jhon',
       lastName: 'Doe',
@@ -65,6 +66,7 @@ describe('LikesController', () => {
   describe('findAll', () => {
     const mockUser: User = {
       id: 1,
+      age: "20",
       email: 'example@example.com',
       firstName: 'Jhon',
       lastName: 'Doe',
@@ -103,6 +105,7 @@ describe('LikesController', () => {
   describe('remove', () => {
     const mockUser: User = {
       id: 1,
+      age: "20",
       email: 'example@example.com',
       firstName: 'Jhon',
       lastName: 'Doe',

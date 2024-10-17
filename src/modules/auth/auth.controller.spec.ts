@@ -35,6 +35,7 @@ describe('AuthController', () => {
   describe('loginEmail', () => {
     const mockUser: User = {
       id: 1,
+      age: "20",
       email: 'example@example.com',
       firstName: 'Jhon',
       lastName: 'Doe',
@@ -74,6 +75,7 @@ describe('AuthController', () => {
   describe('register', () => {
     const mockUser: User = {
       id: 1,
+      age: "20",
       email: 'example@example.com',
       firstName: 'Jhon',
       lastName: 'Doe',

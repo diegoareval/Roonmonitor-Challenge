@@ -24,6 +24,7 @@ describe('OrdersController', () => {
     it('should create a new order', async () => {
       const user = {
         id: 1,
+        age: "20",
         email: 'dummy@gmail.com',
         firstName: 'Jhon',
         lastName: 'Doe',
@@ -59,6 +60,7 @@ describe('OrdersController', () => {
   describe('findAll', () => {
     const user = {
       id: 1,
+      age: "20",
       email: 'dummy@gmail.com',
       firstName: 'Jhon',
       lastName: 'Doe',

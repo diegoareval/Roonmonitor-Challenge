@@ -29,6 +29,7 @@ describe('CartController', () => {
       };
       const mockUser: User = {
         id: 1,
+        age: "20",
         email: 'example@example.com',
         firstName: 'Jhon',
         lastName: 'Doe',
@@ -55,6 +56,7 @@ describe('CartController', () => {
     it('should return all the items in the user cart', async () => {
       const mockUser: User = {
         id: 1,
+        age: "20",
         email: 'example@example.com',
         firstName: 'Jhon',
         lastName: 'Doe',
@@ -102,6 +104,7 @@ describe('CartController', () => {
     it('should update the quantity of an item in the user cart', async () => {
       const mockUser: User = {
         id: 1,
+        age: "20",
         email: 'example@example.com',
         firstName: 'Jhon',
         lastName: 'Doe',
@@ -149,6 +152,7 @@ describe('CartController', () => {
     it('should remove an item from the user cart', async () => {
       const mockUser: User = {
         id: 1,
+        age: "20",
         email: 'example@example.com',
         firstName: 'Jhon',
         lastName: 'Doe',

@@ -16,6 +16,7 @@ model User {
   firstName String?
   lastName  String?
   password  String
+  age       String?
   roles     UserRole[] @default([])
   createdAt DateTime   @default(now())
   updatedAt DateTime   @default(now())
