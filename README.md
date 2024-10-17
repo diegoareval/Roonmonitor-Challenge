@@ -1,8 +1,5 @@
-# 🛍️ Tiny Store REST API
+# Simple Store REST API
 
-TinyStore is a REST API designed to power an e-commerce platform. It provides functionality for managing products, shopping carts, orders, authentication, and user preferences. Built with **Node.js**, **NestJS**, and **PostgreSQL**, it ensures efficient, scalable, and secure handling of sensitive e-commerce data. All modules have been extensively tested to maintain security and reliability.
-
-[Problem Description](https://ravndevelopment.notion.site/Tiny-store-644766d0a53241f7985cc41118960292)
 
 ## 🎮 Live Demo
 
@@ -24,7 +21,7 @@ To interact with the API, use the following demo credentials:
   "password": "managerPassword"
 }
 ```
-[See Swagger documentation here](https://tiny-store-db1c4e9bf4f1.herokuapp.com/api-docs)
+[See Swagger documentation here](http:localhost:3000/api-docs)
 
 
 ## 🔐 Environment Variables
@@ -41,13 +38,13 @@ To run this project, you will need to add the following environment variables to
 ### 1. Clone the project
 
 ```bash
-  git clone https://github.com/diegoareval/Ravn-Challenge-V2-Diego
+  git clone https://github.com/diegoareval/Roonmonitor-Challenge
 ```
 
 ### 2. Go to the project directory
 
 ```bash
-  cd Ravn-Challenge-V2-Diego
+  cd Roonmonitor-Challenge
 ```
 
 ### 3. Install dependencies
@@ -56,13 +53,27 @@ To run this project, you will need to add the following environment variables to
   yarn install
 ```
 
-### 4. Run Seeds
+### 4. Execute migrations
+
+```bash
+  yarn prisma:generate
+```
+
+```bash
+  prisma:migrate:save
+```
+
+```bash
+  prisma:migrate:run
+```
+
+### 5. Run Seeds
 
 ```bash
   yarn run seed
 ```
 
-### 5. Start the server
+### 6. Start the server
 
 ```bash
   yarn start:dev
