@@ -17,11 +17,10 @@ To interact with the API, use the following demo credentials:
 
 ```json
 {
-  "email": "ravn@example.com",
+  "email": "roommonitor@example.com",
   "password": "managerPassword"
 }
 ```
-[See Swagger documentation here](http:localhost:3000/api-docs)
 
 
 ## 🔐 Environment Variables
@@ -78,6 +77,8 @@ To run this project, you will need to add the following environment variables to
 ```bash
   yarn start:dev
 ```
+
+[See Swagger documentation here](http:localhost:3000/api-docs)
 
 # 🧪  Running Tests
 
